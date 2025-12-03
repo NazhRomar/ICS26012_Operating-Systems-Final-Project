@@ -93,6 +93,17 @@ function addRow() {
 // remove row
 function deleteRow(button) {
     button.closest("tr").remove();
+    renumberRows();
+}
+
+// renumber rows to fix id gaps
+function renumberRows() {
+    const rows = document.querySelectorAll("#inputTable tr");
+    rows.forEach((row, index) => {
+        row.querySelector(".process-id").innerText = `P${index + 1}`;
+    });
+    // sync global count to current row length
+    processCount = rows.length;
 }
 
 // handle algo switching
