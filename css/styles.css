@@ -1,0 +1,92 @@
+#inputTable td,
+#outputTable td {
+    height: 50px;
+    vertical-align: middle;
+    padding-top: unset;
+    padding-bottom: unset;
+}
+
+/* Gantt Chart Styles */
+.gantt-container {
+    display: flex;
+    align-items: flex-start;
+    overflow-x: auto;
+    padding-bottom: 30px;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Custom scrollbar for better look */
+.gantt-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.gantt-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.gantt-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.gantt-container::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+
+.gantt-block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    color: white;
+    font-weight: bold;
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+    cursor: default;
+}
+
+.gantt-block:hover {
+    transform: translateY(-3px);
+    z-index: 10;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.time-label {
+    position: absolute;
+    bottom: -25px;
+    font-size: 0.75rem;
+    color: #555;
+    font-weight: 600;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.time-start {
+    left: 0;
+    transform: translateX(-50%);
+}
+
+.time-end {
+    right: 0;
+    transform: translateX(50%);
+}
+.table th,
+.table td {
+    border-bottom: 0 !important;
+}
+.table td {
+    border-top: 1px solid #dee2e6 !important;
+}
+
+.table thead th {
+    border-top: 0 !important;
+}
