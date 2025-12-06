@@ -21,7 +21,7 @@
                     <h5 class="text-muted fw-semibold m-0">Group 7 - Arcedo, Batiancila, Ng, Pe&ntilde;averde, Ronquillo</h3>
                     
                     <div class="d-flex gap-2 mt-3">
-                        <div>
+                        <div class="d-flex align-items-center gap-2">
                             <span class="text-muted fw-semibold">Algorithm:</span>
                             <select class="form-select" id="algoSelect" onchange="selectAlgo(this.value)" style="width: auto; cursor: pointer;">
                                 <option value="FCFS" selected>First Come First Serve (FCFS)</option>
@@ -31,7 +31,7 @@
                                 <option value="MLQ">Multilevel Queue (MLQ)</option>
                             </select>
                         </div>
-                
+                    
                         <div id="priority-settings" style="display: none;">
                             <select class="form-select bg-primary border-light text-white" id="priorityOrderSelect" onchange="selectPriorityOrder(this.value)" style="width: auto; cursor: pointer;">
                                 <option value="lower" class="bg-white text-dark" selected>Lower # = Higher Priority</option>
