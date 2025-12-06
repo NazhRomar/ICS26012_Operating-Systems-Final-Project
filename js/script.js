@@ -39,6 +39,13 @@ function fillRandomly() {
             prioInput.value = Math.floor(Math.random() * 5) + 1;
         }
 
+        // UPDATED: fill queue algo randomly if visible (MLQ)
+        const algoCol = row.querySelector(".algo-col");
+        const algoInput = row.querySelector(".algo-input");
+        if (algoCol && algoCol.style.display !== 'none' && algoInput) {
+            algoInput.value = Math.random() < 0.5 ? 'FCFS' : 'SJF';
+        }
+
         // fill deadline if visible
         const deadCol = row.querySelector(".deadline-col");
         const deadInput = row.querySelector(".deadline-input");
@@ -66,8 +73,12 @@ function addRow() {
     // check columns visibility based on algo
     const priorityDisplay = (selectedAlgorithm === 'Priority' || selectedAlgorithm === 'MLQ') ? 'table-cell' : 'none';
     const deadlineDisplay = (selectedAlgorithm === 'Deadline') ? 'table-cell' : 'none';
+    
+    // UPDATED: check visibility for Queue Algo column
+    const algoDisplay = (selectedAlgorithm === 'MLQ') ? 'table-cell' : 'none';
 
     // generate row html
+    // UPDATED: added .algo-col cell with select dropdown
     row.innerHTML = `
         <td>
             <button class="btn btn-danger btn-sm border-0" onclick="deleteRow(this)">
@@ -81,6 +92,13 @@ function addRow() {
         
         <td class="priority-col" style="display: ${priorityDisplay};">
             <input type="number" class="form-control priority-input" min="1" value="1">
+        </td>
+
+        <td class="algo-col" style="display: ${algoDisplay};">
+            <select class="form-select algo-input">
+                <option value="FCFS">FCFS</option>
+                <option value="SJF">SJF</option>
+            </select>
         </td>
         
         <td class="deadline-col" style="display: ${deadlineDisplay};">
@@ -129,6 +147,13 @@ function selectAlgo(algo) {
         el.style.display = showPriority ? 'table-cell' : 'none';
     });
 
+    // UPDATED: toggle Queue Algo column for MLQ
+    const showAlgo = (algo === 'MLQ');
+    const algoEls = document.querySelectorAll('.algo-col');
+    algoEls.forEach(el => {
+        el.style.display = showAlgo ? 'table-cell' : 'none';
+    });
+
     // check if deadline needed
     const showDeadline = (algo === 'Deadline');
     const deadlineEls = document.querySelectorAll('.deadline-col');
@@ -173,8 +198,12 @@ function simulate() {
         const bt = parseInt(row.querySelector(".bt-input").value) || 0;
         const priority = parseInt(row.querySelector(".priority-input").value) || 1; 
         const deadline = parseInt(row.querySelector(".deadline-input").value) || 0;
+        
+        // UPDATED: Scrape the algorithm selected for this row
+        const algoInput = row.querySelector(".algo-input");
+        const queueAlgo = algoInput ? algoInput.value : 'FCFS';
 
-        processes.push({ id, at, bt, priority, deadline, completed: false });
+        processes.push({ id, at, bt, priority, deadline, queueAlgo, completed: false });
     });
 
     let solvedProcesses = [];
@@ -365,8 +394,8 @@ function calculateDeadline(processes) {
     return result;
 }
 
+// UPDATED: Rewritten to respect queue-specific algorithm
 function calculateMLQ(processes) {
-    // note: basic implementation treating priority as queue level
     let currentTime = 0;
     let completedCount = 0;
     const n = processes.length;
@@ -376,12 +405,23 @@ function calculateMLQ(processes) {
         const availableProcesses = processes.filter(p => p.at <= currentTime && !p.completed);
 
         if (availableProcesses.length > 0) {
-            // sort logic: lower queue id = higher priority
+            // sort logic for MLQ
             availableProcesses.sort((a, b) => {
+                // Queue ID (Priority) - Lower # is higher priority
                 if (a.priority !== b.priority) {
                     return a.priority - b.priority; 
                 }
-                return a.at - b.at; 
+
+                // If same Queue ID, check the Algo selected for that queue
+                // use process 'a' to determine the rule
+                if (a.queueAlgo === 'SJF') {
+                    // Shortest Job First logic
+                    if (a.bt !== b.bt) return a.bt - b.bt;
+                    return a.at - b.at;
+                } else {
+                    // FCFS logic (default)
+                    return a.at - b.at;
+                }
             });
 
             const p = availableProcesses[0];
