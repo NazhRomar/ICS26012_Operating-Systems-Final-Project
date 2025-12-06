@@ -6,7 +6,6 @@
     padding-bottom: unset;
 }
 
-/* Gantt Chart Styles */
 .gantt-container {
     display: flex;
     align-items: flex-start;
@@ -17,7 +16,6 @@
     padding-right: 15px;
 }
 
-/* Custom scrollbar for better look */
 .gantt-container::-webkit-scrollbar {
     height: 8px;
 }
@@ -79,14 +77,28 @@
     right: 0;
     transform: translateX(50%);
 }
+
 .table th,
 .table td {
     border-bottom: 0 !important;
 }
+
 .table td {
     border-top: 1px solid #dee2e6 !important;
 }
 
 .table thead th {
     border-top: 0 !important;
+}
+
+/* remove the arrow thingy idk name*/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* remove the arrow thingy idk name but firefox*/
+input[type=number] {
+    -moz-appearance: textfield;
 }
