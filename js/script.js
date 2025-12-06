@@ -39,7 +39,7 @@ function fillRandomly() {
             prioInput.value = Math.floor(Math.random() * 5) + 1;
         }
 
-        // UPDATED: fill queue algo randomly if visible (MLQ)
+        // fill queue algo randomly if visible (MLQ)
         const algoCol = row.querySelector(".algo-col");
         const algoInput = row.querySelector(".algo-input");
         if (algoCol && algoCol.style.display !== 'none' && algoInput) {
@@ -124,30 +124,30 @@ function renumberRows() {
     processCount = rows.length;
 }
 
-// handle algo switching
 function selectAlgo(algo) {
     selectedAlgorithm = algo;
     
-    // check if priority needed
+    // check if priority column is needed
     const showPriority = (algo === 'Priority' || algo === 'MLQ');
     const priorityEls = document.querySelectorAll('.priority-col');
-    
-    // update header text
+
     const priorityHeader = document.querySelector('th.priority-col');
     if (priorityHeader) {
         if(algo === 'MLQ') {
-            priorityHeader.innerText = "Queue ID";
+            // Specific text for MLQ
+            priorityHeader.innerText = "Queue ID / Priority";
         } else {
+            // Standard text for Priority Algorithm
             priorityHeader.innerText = "Priority";
         }
     }
 
-    // toggle priority column
+    // toggle priority column visibility
     priorityEls.forEach(el => {
         el.style.display = showPriority ? 'table-cell' : 'none';
     });
 
-    // UPDATED: toggle Queue Algo column for MLQ
+    // toggle Queue Algo column for MLQ
     const showAlgo = (algo === 'MLQ');
     const algoEls = document.querySelectorAll('.algo-col');
     algoEls.forEach(el => {
@@ -167,7 +167,6 @@ function selectAlgo(algo) {
         settingsDiv.style.display = (algo === 'Priority') ? 'block' : 'none';
     }
 }
-
 // set priority order logic
 function selectPriorityOrder(order) {
     if (order === 'lower') {
