@@ -15,22 +15,20 @@
     </head>
 
     <body class="min-vh-100 d-flex flex-column justify-content-center bg-light">
-        <div class="container-fluid my-5 p-5">
+        <div class="container-fluid my-3 my-md-5 p-2 p-md-5">
             <div class="row">
-                <div class="col p-4 rounded shadow-sm bg-white border">
-                    <div class="d-flex flex-column gap-2 p-3 rounded-1">
-                        <h1 class="m-0 fw-bold" id="title-header">Non-Preemptive CPU Scheduling Simulator</h1>
-                        <h5 class="text-muted fw-semibold m-0">Group 7 - Arcedo, Batiancila, Ng, Pe&ntilde;averde, Ronquillo</h5>
-
-                        
+                <div class="col-12 p-3 p-md-4 rounded shadow-sm bg-white border">
+                    <div class="d-flex flex-column gap-2 p-2 p-md-3 rounded-1">
+                        <h1 class="m-0 fw-bold fs-2 fs-md-1" id="title-header">Non-Preemptive CPU Scheduling Simulator</h1>
+                        <h5 class="text-muted fw-semibold m-0 fs-6 fs-md-5">Group 7 - Arcedo, Batiancila, Ng, Pe&ntilde;averde, Ronquillo</h5>
                     </div>
 
-                    <div class="container rounded mt-3">
+                    <div class="container-fluid px-0 rounded mt-3">
 
-                        <div class="d-flex flex-wrap gap-3 mt-3 align-items-center">
-                            <div class="d-flex align-items-center gap-2">
-                                <span class="text-muted fw-semibold">Algorithm:</span>
-                                <select class="form-select" id="algoSelect" onchange="selectAlgo(this.value)" style="width: auto; cursor: pointer">
+                        <div class="d-flex flex-column flex-md-row flex-wrap gap-3 mt-3 align-items-start align-items-md-center">
+                            <div class="d-flex align-items-center gap-2 w-100 w-md-auto">
+                                <span class="text-muted fw-semibold text-nowrap">Algorithm:</span>
+                                <select class="form-select" id="algoSelect" onchange="selectAlgo(this.value)" style="cursor: pointer">
                                     <option value="FCFS" selected>First Come First Serve (FCFS)</option>
                                     <option value="SJF">Shortest Job First (SJF)</option>
                                     <option value="Priority">Priority (Prio)</option>
@@ -39,48 +37,43 @@
                                 </select>
                             </div>
 
-                            <div id="priority-settings" style="display: none">
+                            <div id="priority-settings" style="display: none" class="w-100 w-md-auto">
                                 <select
                                     class="form-select bg-primary border-light text-white"
                                     id="priorityOrderSelect"
                                     onchange="selectPriorityOrder(this.value)"
-                                    style="width: auto; cursor: pointer">
+                                    style="cursor: pointer">
                                     <option value="lower" class="bg-white text-dark" selected>Lower # = Higher Priority</option>
                                     <option value="higher" class="bg-white text-dark">Higher # = Higher Priority</option>
                                 </select>
                             </div>
                         </div>
 
-                        
-                        <div class="d-flex justify-content-between p-3 px-0">
-                            <div class="d-flex gap-2">
-                                <button type="button" class="btn btn-secondary" onclick="fillRandomly()">Fill Randomly</button>
-                                <button class="btn btn-primary" onclick="addRow()">Add Process</button>
-                                <button class="btn btn-danger" onclick="removeProcess()">Remove Process</button>
+                        <div class="d-flex flex-column flex-md-row justify-content-between gap-3 p-3 px-0">
+                            <div class="d-flex flex-wrap gap-2">
+                                <button type="button" class="btn btn-secondary flex-grow-1 flex-md-grow-0" onclick="fillRandomly()">Fill Randomly</button>
+                                <button class="btn btn-primary flex-grow-1 flex-md-grow-0" onclick="addRow()">Add Process</button>
+                                <button class="btn btn-danger flex-grow-1 flex-md-grow-0" onclick="removeProcess()">Remove</button>
                             </div>
                         
                             <div>
-                                <button type="button" class="btn btn-primary" onclick="simulate()">Simulate</button>
+                                <button type="button" class="btn btn-primary w-100 w-md-auto" onclick="simulate()">Simulate</button>
                             </div>
                         </div>
                         <hr>
 
-
-                        <div class="row">
-                            <div class="col">
+                        <div class="row g-4">
+                            <div class="col-12 col-xl-6">
                                 <h4 class="fw-bold text-muted">Input</h4>
-                                <div class="border rounded-3 overflow-hidden">
-                                    <table class="table table-striped m-0 bg-white">
+                                <div class="table-responsive border rounded-3">
+                                    <table class="table table-striped m-0 bg-white text-nowrap">
                                         <thead>
                                             <tr>
-                                                <th scope="col" style="width: 80px">Process</th>
-
-                                                <th scope="col" class="text-start" style="width: 20%">Arrival Time</th>
-                                                <th scope="col" class="text-start" style="width: 20%">Burst Time</th>
-
-                                                <th scope="col" class="priority-col text-start" style="display: none; width: 20%">Priority</th>
-
-                                                <th scope="col" class="deadline-col text-start" style="display: none; width: 20%">Deadline</th>
+                                                <th scope="col" style="min-width: 80px">Process</th>
+                                                <th scope="col" class="text-start" style="min-width: 100px">Arrival Time</th>
+                                                <th scope="col" class="text-start" style="min-width: 100px">Burst Time</th>
+                                                <th scope="col" class="priority-col text-start" style="display: none; min-width: 100px">Priority</th>
+                                                <th scope="col" class="deadline-col text-start" style="display: none; min-width: 100px">Deadline</th>
                                             </tr>
                                         </thead>
                                         <tbody id="inputTable"></tbody>
@@ -88,10 +81,10 @@
                                 </div>
                             </div>
 
-                            <div class="col">
+                            <div class="col-12 col-xl-6">
                                 <h4 class="fw-bold text-muted">Output</h4>
-                                <div class="border rounded-3 overflow-hidden">
-                                    <table class="table table-striped m-0 bg-white">
+                                <div class="table-responsive border rounded-3">
+                                    <table class="table table-striped m-0 bg-white text-nowrap">
                                         <thead id="outputThead">
                                             <tr>
                                                 <th scope="col">ST</th>
@@ -112,7 +105,7 @@
             </div>
 
             <div class="row mt-3">
-                <div class="col p-5 text-center text-muted border rounded bg-white shadow-sm border-dashed" id="gantt-chart">
+                <div class="col-12 p-3 p-md-5 text-center text-muted border rounded bg-white shadow-sm border-dashed" id="gantt-chart">
                     <i class="bi bi-bar-chart-steps fs-1"></i>
                     <p class="mt-2">Run simulation to generate Gantt Chart</p>
                 </div>
