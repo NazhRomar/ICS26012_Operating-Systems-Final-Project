@@ -6,12 +6,34 @@
     padding-bottom: unset;
 }
 
-/* Ensure inputs have a minimum width so they are tappable on mobile */
-.at-input,
-.bt-input,
-.priority-input,
-.deadline-input {
-    min-width: 60px;
+.table td, .table th {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    border-bottom: 0 !important;
+}
+
+.at-input, .bt-input, .priority-input, .deadline-input {
+    min-width: 60px; 
+}
+
+.fade-in-right {
+    animation: slideIn 0.3s ease-out forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.input-group-text {
+    font-weight: 500;
+    font-size: 0.9rem;
 }
 
 .gantt-container {
@@ -22,7 +44,6 @@
     padding-top: 10px;
     padding-left: 15px;
     padding-right: 15px;
-    /* Smooth scrolling for mobile */
     -webkit-overflow-scrolling: touch;
 }
 
@@ -101,14 +122,14 @@
     border-top: 0 !important;
 }
 
-/* remove the arrow thingy idk name*/
+/* Remove number input spinners (Chrome/Safari/Edge) */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-/* remove the arrow thingy idk name but firefox*/
+/* Remove number input spinners (Firefox) */
 input[type=number] {
     -moz-appearance: textfield;
 }
