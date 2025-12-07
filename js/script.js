@@ -69,22 +69,23 @@ function fillRandomly() {
 //Function to add row entries
 //Row Entries are New Processes
 function addRow() {
+    const tableBody = document.getElementById("inputTable");
     //Gets the row count to check if ceiling is reached
-    const currentRows = document.querySelectorAll("#inputTable tr").length;
+    const currentRows = tableBody.getElementsByTagName("tr").length;
+
     if (currentRows >= 9) {
-        //return alerto
+        //Warn user if they try adding process if total is 9
         alert("Maximum limit of 9 processes reached.");
         return;
     }
 
     //Increment Process if ceiling is not reached
-    processCount++;
+    processCount = currentRows + 1;
 
-    //Table and Row Intialization
-    const table = document.getElementById("inputTable");
+    //Row Intialization
     const row = document.createElement("tr");
 
-    //Default Value for priority and deadline
+    // Default Value for priority and deadline visibility
     let priorityDisplay = 'none';
     let deadlineDisplay = 'none';
 
@@ -98,6 +99,7 @@ function addRow() {
         deadlineDisplay = 'table-cell';
     }
 
+    // MLQ Validation Logic
     let inputValidation = "";
     if (selectedAlgorithm === 'MLQ') {
         //Validation for MLQ
@@ -108,12 +110,6 @@ function addRow() {
     //Append new Row
     //Final block for add rows since validation is already done
     row.innerHTML = `
-        <td>
-            <button class="btn btn-danger btn-sm border-0" onclick="deleteRow(this)">
-                <i class="bi bi-trash-fill"></i>
-            </button>
-        </td>
-
         <td class="process-id">P${processCount}</td>
         <td><input type="number" class="form-control at-input" min="0" value="0"></td>
         <td><input type="number" class="form-control bt-input" min="1" value="1"></td>
@@ -130,28 +126,22 @@ function addRow() {
             <input type="number" class="form-control deadline-input" min="1" value="1">
         </td>
     `;
-    table.appendChild(row);
+    tableBody.appendChild(row);
 }
 
-//Function deleteRow and renumberRows work together
-//Since if there's no renumberRows, there would be holes in our Process IDs
-function deleteRow(button) {
-    //Delete then call
-    button.closest("tr").remove();
-    renumberRows();
+// function to remove last process
+function removeProcess() {
+    const tableBody = document.getElementById("inputTable");
+    const lastRow = tableBody.lastElementChild;
+
+    // Check if there are rows to remove
+    if (lastRow) {
+        lastRow.remove();
+        
+        // Update the global processCount to match the new length
+        processCount = tableBody.getElementsByTagName("tr").length;
+    }
 }
-
-function renumberRows() {
-    const rows = document.querySelectorAll("#inputTable tr");
-    //Loops the rows with their corresponding indexes to be renamed/reassigned
-    rows.forEach((row, index) => {
-        row.querySelector(".process-id").innerText = `P${index + 1}`;
-    });
-    //Reinitialize processCount
-    processCount = rows.length;
-}
-
-
 
 function selectAlgo(algo) {
     selectedAlgorithm = algo;
