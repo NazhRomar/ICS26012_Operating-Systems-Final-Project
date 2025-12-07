@@ -6,6 +6,14 @@
     padding-bottom: unset;
 }
 
+/* Ensure inputs have a minimum width so they are tappable on mobile */
+.at-input,
+.bt-input,
+.priority-input,
+.deadline-input {
+    min-width: 60px;
+}
+
 .gantt-container {
     display: flex;
     align-items: flex-start;
@@ -14,6 +22,8 @@
     padding-top: 10px;
     padding-left: 15px;
     padding-right: 15px;
+    /* Smooth scrolling for mobile */
+    -webkit-overflow-scrolling: touch;
 }
 
 .gantt-container::-webkit-scrollbar {
