@@ -484,11 +484,11 @@ function calculateMLQ(processes) {
                 //Since we reused Priority for MLQ
                 //MLQ queues is designated as priority
 
-                //Queue 1 - SJF
+                //Queue 1 - FCFS
                 if (a.priority !== b.priority) {
                     return a.priority - b.priority;
                 }
-                //Queue 1 - FCFS
+                //Queue 2 - SJF
                 if (a.priority === 2) {
                     if (a.bt !== b.bt) return a.bt - b.bt;
                     return a.at - b.at;
